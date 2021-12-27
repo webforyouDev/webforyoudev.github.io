@@ -1,5 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
@@ -7,7 +5,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h3>Web For You</h3>
-        <p>Skreddersydde IT-løsninger</p>
         <p>Kommer snart!</p>
         <p>Web.For.You@hotmail.com</p>
       </header>
