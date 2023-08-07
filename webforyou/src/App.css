@@ -1,38 +1,88 @@
-.App {
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+.w3-block {
+  margin-bottom: 1em !important;
+}
+
+.title h1 {
   text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 5px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title h1:after {
+  width: 100px;
+  height: 1px;
+  display: block;
+  content: "";
+  position: relative;
+  margin-top: 25px;
+  left: 50%;
+  margin-left: -50px;
+  background-color: #b80000;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.aboutWrap,
+.teamWrap,
+.contactWrapper {
+  padding: 128px 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.OmOssTittel {
+  margin-top: 2em;
+}
+
+.teamContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 768px) {
+  .title h1 {
+    padding-top: 100px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .nokkel {
+    display: none;
+  }
+
+  .OmOssTittel {
+    margin-top: 1.5em;
+  }
+
+  .w3-quarter {
+    padding-bottom: 5em !important;
+  }
+
+  .aboutWrap {
+    padding: 0px 16px;
+  }
+
+  .teamWrap {
+    padding: 50px 16px;
+  }
+
+  .teamContainer {
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .bgimg-1 {
+    width: 70%;
+  }
+
+  .contactWrapper {
+    padding: 0px 16px;
   }
 }
