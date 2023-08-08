@@ -4,10 +4,12 @@ import zuheb from "./zuheb.jpeg";
 import sajan from "./sajan.jpeg";
 import furkan from "./furkan.jpeg";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 function App() {
   const [openCloseMenu, setOpenCloseMenu] = useState(false);
   const [val, setVal] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleDrawerToggle = () => {
     if (openCloseMenu) {
@@ -22,6 +24,33 @@ function App() {
     if (e.target.value === "" || regex.test(e.target.value)) {
       setVal(e.target.value);
     }
+  };
+
+  const sendEmail = (e: any) => {
+    e.preventDefault();
+
+    // Get the form data
+    const formData = new FormData(e.target);
+
+    // Change the heading or subject of the email
+    formData.set("heading", "Melding fra"); // Replace "heading" with the appropriate field name in your template
+
+    emailjs
+      .sendForm(
+        "service_05233fi",
+        "template_nvmw1kp",
+        e.target,
+        "AR6588XIA61jbgNY6"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setEmailSent(true);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
@@ -256,72 +285,89 @@ function App() {
         </div>
 
         {/*Contact Section*/}
-        <div className="w3-container w3-light-grey contactWrapper" id="contact">
-          <h2 className="w3-center">Kontakt</h2>
-          <p className="w3-center w3-large">
-            La oss ta kontakt. Send oss ​​en melding:
-          </p>
-          <div style={{ marginTop: "48px" }}></div>
-          <p>
-            <i className="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>
-            Oslo, Norge
-          </p>
-          <p>
-            <i className="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>
-            <a href="tel:+4746711239">Phone: +47 467 11 239</a>
-          </p>
-          <p>
-            <i className="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i>
-            <a href="mailto:web.for.you@hotmail.com">
-              Email: web.for.you@hotmail.com
-            </a>
-          </p>
-          <br />
-          <form action="">
+        {emailSent ? (
+          <>
+            <div
+              className="w3-container w3-light-grey contactWrapper"
+              id="contact"
+            >
+              <h2 className="w3-center">Takk</h2>
+              <p className="w3-center w3-large">Vi tar kontakt</p>
+            </div>
+          </>
+        ) : (
+          <div
+            className="w3-container w3-light-grey contactWrapper"
+            id="contact"
+          >
+            <h2 className="w3-center">Kontakt</h2>
+            <p className="w3-center w3-large">
+              La oss ta kontakt. Send oss ​​en melding:
+            </p>
+            <div style={{ marginTop: "48px" }}></div>
             <p>
-              <input
-                className="w3-input w3-border"
-                type="text"
-                placeholder="Navn"
-                required
-                name="Name"
-              />
+              <i className="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>
+              Oslo, Norge
             </p>
             <p>
-              <input
-                className="w3-input w3-border"
-                type="tel"
-                placeholder="Telefon nummer"
-                required
-                value={val}
-                name="tel"
-                onChange={handlePhoneNumber}
-              />
+              <i className="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>
+              <a href="tel:+4746711239">Phone: +47 467 11 239</a>
             </p>
             <p>
-              <input
-                className="w3-input w3-border"
-                type="email"
-                placeholder="E-post"
-                required
-                name="Email"
-              />
+              <i className="fa fa-envelope fa-fw w3-xxlarge w3-margin-right">
+                {" "}
+              </i>
+              <a href="mailto:web.for.you@hotmail.com">
+                Email: web.for.you@hotmail.com
+              </a>
             </p>
-            <p>
-              <textarea
-                className="w3-input w3-border"
-                placeholder="Melding"
-                required
-                name="Message"
-              />
-            </p>
-            <p>
-              <button className="w3-button w3-black" type="submit">
-                <i className="fa fa-paper-plane"></i> SEND MELDING
-              </button>
-            </p>
-          </form>
-        </div>
+            <br />
+            <form onSubmit={sendEmail}>
+              <p>
+                <input
+                  className="w3-input w3-border"
+                  type="text"
+                  placeholder="Navn"
+                  required
+                  name="name_from"
+                />
+              </p>
+              <p>
+                <input
+                  className="w3-input w3-border"
+                  type="tel"
+                  placeholder="Telefon nummer"
+                  required
+                  value={val}
+                  name="phoneNumber_from"
+                  onChange={handlePhoneNumber}
+                />
+              </p>
+              <p>
+                <input
+                  className="w3-input w3-border"
+                  type="email"
+                  placeholder="E-post"
+                  required
+                  name="email_from"
+                />
+              </p>
+              <p>
+                <textarea
+                  className="w3-input w3-border"
+                  placeholder="Melding"
+                  required
+                  name="message_from"
+                />
+              </p>
+              <p>
+                <button className="w3-button w3-black" type="submit">
+                  <i className="fa fa-paper-plane"></i> SEND MELDING
+                </button>
+              </p>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
