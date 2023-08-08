@@ -1,8 +1,8 @@
 import "./App.css";
-import image from "./photo.png";
-import zuheb from "./zuheb.jpeg";
-import sajan from "./sajan.jpeg";
-import furkan from "./furkan.jpeg";
+import image from "./pictures/photo.png";
+import zuheb from "./pictures/zuheb.jpeg";
+import sajan from "./pictures/sajan.jpeg";
+import furkan from "./pictures/furkan.jpeg";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -10,6 +10,9 @@ function App() {
   const [openCloseMenu, setOpenCloseMenu] = useState(false);
   const [val, setVal] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const serviceID: string = process.env.REACT_APP_SERVICE_ID as string;
+  const templateID: string = process.env.REACT_APP_TEMPLATE_ID as string;
+  const publicKey: string = process.env.REACT_APP_PUBLIC_KEY as string;
 
   const handleDrawerToggle = () => {
     if (openCloseMenu) {
@@ -29,22 +32,15 @@ function App() {
   const sendEmail = (e: any) => {
     e.preventDefault();
 
-    emailjs
-      .sendForm(
-        process.env.REACT_APP_SERVICE_ID!,
-        process.env.REACT_APP_TEMPLATE_ID!,
-        e.target,
-        process.env.REACT_APP_PUBLIC_KEY!
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setEmailSent(true);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    emailjs.sendForm(serviceID, templateID, e.target, publicKey).then(
+      (result) => {
+        console.log(result.text);
+        setEmailSent(true);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   };
 
   return (
