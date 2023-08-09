@@ -203,10 +203,10 @@ function App() {
                   <p className="w3-opacity">Frontend utvikler og Designer</p>
                   <p>
                     Zuheb er en allsidig og dyktig frontendutvikler med erfaring
-                    innen ulike frontendrammeverk fra kunder i både privat og
-                    offentlig sektor. Brukervennlighet er noe Zuheb setter svært
-                    høyt, og at den opplevde kvalitet for sluttbrukeren er så
-                    god som mulig. Løsningene han utvikler skal være
+                    innen ulike frontend teknologier, fra kunder i både privat
+                    og offentlig sektor. Brukervennlighet er noe Zuheb setter
+                    svært høyt, og at den opplevde kvalitet for sluttbrukeren er
+                    så god som mulig. Løsningene han utvikler skal være
                     oversiktlige, intuitive og lettfattelige.
                   </p>
                   <div className="w3-button w3-light-grey w3-block">
