@@ -8,8 +8,9 @@ import emailjs from "@emailjs/browser";
 
 function App() {
   const [openCloseMenu, setOpenCloseMenu] = useState(false);
-  const [val, setVal] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+
   const serviceID: string = process.env.REACT_APP_SERVICE_ID as string;
   const templateID: string = process.env.REACT_APP_TEMPLATE_ID as string;
   const publicKey: string = process.env.REACT_APP_PUBLIC_KEY as string;
@@ -25,7 +26,7 @@ function App() {
   const handlePhoneNumber = (e: any) => {
     const regex = /^[0-9\b]+$/;
     if (e.target.value === "" || regex.test(e.target.value)) {
-      setVal(e.target.value);
+      setPhoneNumber(e.target.value);
     }
   };
 
@@ -328,7 +329,7 @@ function App() {
                   type="tel"
                   placeholder="Telefon nummer"
                   required
-                  value={val}
+                  value={phoneNumber}
                   name="phoneNumber_from"
                   onChange={handlePhoneNumber}
                 />
