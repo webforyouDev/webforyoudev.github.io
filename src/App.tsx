@@ -16,11 +16,7 @@ function App() {
   const publicKey: string = process.env.REACT_APP_PUBLIC_KEY as string;
 
   const handleDrawerToggle = () => {
-    if (openCloseMenu) {
-      setOpenCloseMenu(false);
-    } else {
-      setOpenCloseMenu(true);
-    }
+    openCloseMenu ? setOpenCloseMenu(false) : setOpenCloseMenu(true);
   };
 
   const handlePhoneNumber = (e: any) => {
@@ -33,15 +29,15 @@ function App() {
   const sendEmail = (e: any) => {
     e.preventDefault();
 
-    emailjs.sendForm(serviceID, templateID, e.target, publicKey).then(
-      (result) => {
+    emailjs
+      .sendForm(serviceID, templateID, e.target, publicKey)
+      .then((result) => {
         console.log(result.text);
         setEmailSent(true);
-      },
-      (error) => {
+      })
+      .catch((error) => {
         console.log(error.text);
-      }
-    );
+      });
   };
 
   return (
@@ -181,9 +177,10 @@ function App() {
                     Sajan er en engasjert og ansvarlig utvikler som utfører
                     oppgavene sine på en svært produktiv måte. Han holder
                     arbeidet sitt ryddig og er alltid pålitelig når det kommer
-                    til oppgaver som er tildelt ham. Han har raskt tilegnet seg
-                    kunnskap om flere teknologier og har god forståelse av hele
-                    teknologistakken.
+                    til oppgaver som er tildelt ham. Sajan har en rask
+                    læringskurve og samarbeider godt i team Han har raskt
+                    tilegnet seg kunnskap om flere teknologier og har god
+                    forståelse av teknologistakken.
                   </p>
 
                   <div className="w3-button w3-light-grey w3-block">
