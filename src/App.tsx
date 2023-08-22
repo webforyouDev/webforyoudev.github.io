@@ -10,6 +10,7 @@ function App() {
   const [openCloseMenu, setOpenCloseMenu] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const serviceID: string = process.env.REACT_APP_SERVICE_ID as string;
   const templateID: string = process.env.REACT_APP_TEMPLATE_ID as string;
@@ -27,15 +28,18 @@ function App() {
   };
 
   const sendEmail = (e: any) => {
+    setLoading(true);
     e.preventDefault();
 
     emailjs
       .sendForm(serviceID, templateID, e.target, publicKey)
       .then((result) => {
         console.log(result.text);
+        setLoading(false);
         setEmailSent(true);
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error.text);
       });
   };
@@ -70,7 +74,6 @@ function App() {
             </a>
           </div>
         </div>
-
         {/* Sidebar on small screens when clicking the menu icon */}
         {openCloseMenu && (
           <nav
@@ -113,7 +116,6 @@ function App() {
             </a>
           </nav>
         )}
-
         {/*About Section  */}
         <div className="w3-container aboutWrap" id="about">
           <div className="title">
@@ -161,7 +163,6 @@ function App() {
             </div>
           </div>
         </div>
-
         {/*Team Section*/}
         <div className="w3-container teamWrap" id="team">
           <h2 className="w3-center">Teamet</h2>
@@ -242,7 +243,6 @@ function App() {
             </div>
           </div>
         </div>
-
         {/*Skills Section*/}
         <div className="w3-container w3-light-grey w3-padding-64" id="work">
           <div className="w3-row-padding">
@@ -271,90 +271,99 @@ function App() {
             </div>
           </div>
         </div>
-
         {/*Contact Section*/}
-        {emailSent ? (
-          <>
-            <div
-              className="w3-container w3-light-grey contactWrapper"
-              id="contact"
-            >
-              <h2 className="w3-center">Takk</h2>
-              <p className="w3-center w3-large">Vi tar kontakt</p>
-            </div>
-          </>
-        ) : (
+
+        {loading ? (
           <div
             className="w3-container w3-light-grey contactWrapper"
             id="contact"
           >
-            <h2 className="w3-center">Kontakt</h2>
-            <p className="w3-center w3-large">
-              La oss ta kontakt. Send oss ​​en melding:
-            </p>
-            <div style={{ marginTop: "48px" }}></div>
-            <p>
-              <i className="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>
-              Oslo, Norge
-            </p>
-            <p>
-              <i className="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>
-              <a href="tel:+4746711239">Phone: +47 467 11 239</a>
-            </p>
-            <p>
-              <i className="fa fa-envelope fa-fw w3-xxlarge w3-margin-right">
-                {" "}
-              </i>
-              <a href="mailto:web.for.you@hotmail.com">
-                Email: web.for.you@hotmail.com
-              </a>
-            </p>
-            <br />
-            <form onSubmit={sendEmail}>
-              <p>
-                <input
-                  className="w3-input w3-border"
-                  type="text"
-                  placeholder="Navn"
-                  required
-                  name="name_from"
-                />
-              </p>
-              <p>
-                <input
-                  className="w3-input w3-border"
-                  type="tel"
-                  placeholder="Telefon nummer"
-                  required
-                  value={phoneNumber}
-                  name="phoneNumber_from"
-                  onChange={handlePhoneNumber}
-                />
-              </p>
-              <p>
-                <input
-                  className="w3-input w3-border"
-                  type="email"
-                  placeholder="E-post"
-                  required
-                  name="email_from"
-                />
-              </p>
-              <p>
-                <textarea
-                  className="w3-input w3-border"
-                  placeholder="Melding"
-                  required
-                  name="message_from"
-                />
-              </p>
-              <p>
-                <button className="w3-button w3-black" type="submit">
-                  <i className="fa fa-paper-plane"></i> SEND MELDING
-                </button>
-              </p>
-            </form>
+            <h2 className="w3-center">Vennligst vent</h2>
           </div>
+        ) : (
+          <>
+            {emailSent ? (
+              <div
+                className="w3-container w3-light-grey contactWrapper"
+                id="contact"
+              >
+                <h2 className="w3-center">Takk</h2>
+                <p className="w3-center w3-large">Vi tar kontakt</p>
+              </div>
+            ) : (
+              <div
+                className="w3-container w3-light-grey contactWrapper"
+                id="contact"
+              >
+                <h2 className="w3-center">Kontakt</h2>
+                <p className="w3-center w3-large">
+                  La oss ta kontakt. Send oss ​​en melding:
+                </p>
+                <div style={{ marginTop: "48px" }}></div>
+                <p>
+                  <i className="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>
+                  Oslo, Norge
+                </p>
+                <p>
+                  <i className="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>
+                  <a href="tel:+4746711239">Phone: +47 467 11 239</a>
+                </p>
+                <p>
+                  <i className="fa fa-envelope fa-fw w3-xxlarge w3-margin-right">
+                    {" "}
+                  </i>
+                  <a href="mailto:web.for.you@hotmail.com">
+                    Email: web.for.you@hotmail.com
+                  </a>
+                </p>
+                <br />
+                <form onSubmit={sendEmail}>
+                  <p>
+                    <input
+                      className="w3-input w3-border"
+                      type="text"
+                      placeholder="Navn"
+                      required
+                      name="name_from"
+                    />
+                  </p>
+                  <p>
+                    <input
+                      className="w3-input w3-border"
+                      type="tel"
+                      placeholder="Telefon nummer"
+                      required
+                      value={phoneNumber}
+                      name="phoneNumber_from"
+                      onChange={handlePhoneNumber}
+                    />
+                  </p>
+                  <p>
+                    <input
+                      className="w3-input w3-border"
+                      type="email"
+                      placeholder="E-post"
+                      required
+                      name="email_from"
+                    />
+                  </p>
+                  <p>
+                    <textarea
+                      className="w3-input w3-border"
+                      placeholder="Melding"
+                      required
+                      name="message_from"
+                    />
+                  </p>
+                  <p>
+                    <button className="w3-button w3-black" type="submit">
+                      <i className="fa fa-paper-plane"></i> SEND MELDING
+                    </button>
+                  </p>
+                </form>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
